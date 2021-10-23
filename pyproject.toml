@@ -8,6 +8,7 @@ authors = ["Michiel Vanderhoydonck"]
 python = "^3.8"
 typer = "^0.4.0"
 black = "^21.9b0"
+pylint = "^2.11.1"
 
 [tool.poetry.dev-dependencies]
 
