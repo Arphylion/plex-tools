@@ -3,7 +3,7 @@ on: [pull_request]
 
 jobs:
   check-commits:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container: alpine:latest
 
     steps:

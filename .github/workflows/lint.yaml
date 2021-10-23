@@ -9,7 +9,7 @@ on:
 jobs:
   check-skip-job:
     continue-on-error: true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
 
@@ -24,7 +24,7 @@ jobs:
   check-code-style:
     needs: check-skip-job
     if: ${{ needs.check-skip-job.outputs.should_skip != 'true' }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container: python:3.9.7-bullseye
 
     env:
