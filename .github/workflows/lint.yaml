@@ -1,0 +1,63 @@
+name: Lint and code style checks
+on:
+  pull_request:
+    paths:
+      - pyproject.toml
+      - poetry.lock
+      - src/plex-tools/**/*.py
+
+jobs:
+  check-skip-job:
+    continue-on-error: true
+    runs-on: self-hosted
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v3.4.1
+        with:
+          concurrent_skipping: "never"
+          skip_after_successful_duplicate: "true"
+          paths: '["src/**/*.py"]'
+
+  check-code-style:
+    needs: check-skip-job
+    if: ${{ needs.check-skip-job.outputs.should_skip != 'true' }}
+    runs-on: self-hosted
+    container: python:3.9.7-bullseye
+
+    env:
+      LC_ALL: "C.UTF-8"
+      LANG: "C.UTF-8"
+
+    steps:
+      - name: Install prerequisites
+        run: |
+          apt-get -qq update
+          apt-get -qq install git
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install poetry
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade poetry wheel
+
+      - name: Install packages
+        run: poetry install
+
+      - name: Check if all files are formatted with black
+        run: poetry run black --check --verbose src/
+
+      # TODO: Enable more pylint checks
+      # TODO: Figure out why import does not work: E0401
+      - name: Check for pylint errors
+        run: poetry run pylint --disable=C0116,R0914,R0913,C0301,C0114,C0115,C0103,R0903,E0401 -j 0 src/
+
+      - name: Check whether imports are correctly sorted using isort
+        run: poetry run isort --check src/
+
+      - name: Check if all mypy checks succeed
+        run: poetry run mypy src/

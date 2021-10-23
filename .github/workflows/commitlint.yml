@@ -1,0 +1,19 @@
+name: Validate Commits
+on: [pull_request]
+
+jobs:
+  check-commits:
+    runs-on: self-hosted
+    container: alpine:latest
+
+    steps:
+      - name: Install prerequisites
+        run: apk --no-cache add git
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: wagoid/commitlint-github-action@v4
+        with:
+          configFile: "./.commitlintrc.yml"

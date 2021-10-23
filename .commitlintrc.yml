@@ -1,0 +1,29 @@
+---
+extends:
+  - "@commitlint/config-conventional"
+rules:
+  type-enum:
+    - 2
+    - always
+    - - chore
+      - ci
+      - feat
+      - fix
+      - refactor
+      - perf
+      - test
+      - revert
+      - docs
+      - style
+help: |
+  **Possible types**:
+  `chore`:    A normal maintenance task that adds no additional functionality.
+  `ci`:       An improvement to the continuous integration of the software.
+  `feat`:     Adds a new feature.
+  `fix`:      Solves a bug.
+  `refactor`: Rewrites code without feature, performance or bug changes.
+  `perf`:     Improves performance.
+  `test`:     Adds or modifies tests.
+  `revert`:   Changes that reverting other changes.
+  `docs`:     Changes made to documentation.
+  `style`:    Changes related to code style and formatting.
