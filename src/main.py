@@ -20,9 +20,12 @@ def init_plex():
         fg=typer.colors.YELLOW,
         bold=True,
     )
+
     if not plex.isLatest():
         typer.secho(
-            f"Server out of date, consider updating!", fg=typer.colors.RED, bold=True
+            "Server out of date, consider updating!",
+            fg=typer.colors.RED,
+            bold=True,
         )
 
     return plex
