@@ -1,6 +1,6 @@
-import typer
-from plexapi.server import PlexServer
 from os import getenv
+from plexapi.server import PlexServer
+import typer
 
 
 def init_plex():
