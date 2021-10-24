@@ -1,6 +1,7 @@
 from os import getenv
-from plexapi.server import PlexServer
+
 import typer
+from plexapi.server import PlexServer
 
 
 def init_plex():
