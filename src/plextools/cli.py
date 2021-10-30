@@ -36,7 +36,6 @@ def init_plex():
 
 @app.command(name="plextools")
 def cli():
-    typer.echo("plextools")
     pass
 
 
