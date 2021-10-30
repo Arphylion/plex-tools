@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "plex-tools"
-version = "0.1.0"
+name = "plextools"
 description = "A command line interface to perform calls to a running Plex server."
 authors = ["Michiel Vanderhoydonck"]
+packages = [
+  {include = "plextools", from = "src"},
+]
+version = "0.0.1"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -17,3 +20,17 @@ PlexAPI = "^4.7.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+plextools = "plextools.cli:cli"
+
+[tool.black]
+line-length = 139
+
+[tool.isort]
+multi_line_output = 3
+profile = "black"
+
+[[tool.mypy.overrides]]
+disallow_untyped_defs = false
+module = "plextools.*"
