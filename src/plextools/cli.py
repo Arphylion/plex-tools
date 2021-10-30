@@ -3,6 +3,8 @@ from os import getenv
 import typer
 from plexapi.server import PlexServer
 
+app = typer.Typer()
+
 
 def init_plex():
     baseurl = getenv("PLEX_BASE_URL", None)
@@ -10,10 +12,10 @@ def init_plex():
 
     if not token:
         typer.secho("PLEX_TOKEN not defined.", fg=typer.colors.RED, bold=True)
-        raise typer.Exit()
+        raise typer.Exit(code=1)
     if not baseurl:
         typer.secho("PLEX_BASE_URL not defined.", fg=typer.colors.RED, bold=True)
-        raise typer.Exit()
+        raise typer.Exit(code=1)
 
     plex = PlexServer(baseurl, token)
     typer.secho(
@@ -32,9 +34,10 @@ def init_plex():
     return plex
 
 
-def main():
-    init_plex()
+@app.command(name="plextools")
+def cli():
+    pass
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
