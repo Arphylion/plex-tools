@@ -16,4 +16,4 @@ RUN set -xe \
     && poetry install
 
 
-CMD ["plextools"]
+CMD ["plextools --help"]
