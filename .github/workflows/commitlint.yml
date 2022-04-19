@@ -10,7 +10,7 @@ jobs:
       - name: Install prerequisites
         run: apk --no-cache add git
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
